@@ -42,7 +42,7 @@ generate_input <- function(fragment_file,
 
   t1 <- proc.time()
   # con <- file(fragment_file, "r")
-  con <- gzcon(file(fragment_file,open="r"))
+  con <- gzcon(file(fragment_file, open="r"))
   flag <- 0
   nchr <- 1
   nchr_start <- 0
@@ -50,7 +50,10 @@ generate_input <- function(fragment_file,
     flag <- flag+1
     line <- readLines(con, n=1)
     # print(line)
-    if(length(line)==0){
+    if(line %% 1000 == 0){
+      print(line)
+    }
+    if(length(line) == 0){
       break
       print("all finished")
     }
@@ -62,7 +65,7 @@ generate_input <- function(fragment_file,
     if(temp[1] != chr_list[nchr]){
       print(paste(chr_list[nchr], "finished"))
       nchr_start <- nchr_start + floor(chr_length[nchr]/K)+1
-      nchr <- nchr+1
+      nchr <- nchr + 1
       if(nchr > length(chr_list)){
         break
       }
